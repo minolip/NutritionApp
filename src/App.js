@@ -1,6 +1,7 @@
 import './App.css';
 import { Suggestic } from "@suggestic/sdk";
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
+import CustomMealPlan from './components/CutomMealPlan';
 
 require('dotenv').config();
 
@@ -24,6 +25,7 @@ const App = () =>{
   return(
     <div className="App">
       <h2>Welcome to nutrition app</h2>
+      <CustomMealPlan />
     </div>
   );
 }
