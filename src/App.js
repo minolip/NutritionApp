@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { Suggestic } from "@suggestic/sdk";
+import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
 
-function App() {
-  return (
+require('dotenv').config();
+
+const App = () =>{
+
+  const client = new Suggestic(process.env.REACT_APP_TOKEN);
+  const user = client.getUser(process.env.REACT_APP_USER_ID);
+
+  const getCustomMealPlan = async() => {
+    const customMealplan = await user.customMealPlan({
+        calories: 1600,
+        carbs: 0.45,
+        protein: 0.25,
+        fat: 0.3,
+        days: 1,
+        format: [MealTime.Breakfast, MealTime.Lunch, MealTime.Dinner]});
+    console.log(customMealplan);
+  }
+  getCustomMealPlan();
+
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Welcome to nutrition app</h2>
     </div>
   );
 }
