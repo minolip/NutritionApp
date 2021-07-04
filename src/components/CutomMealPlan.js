@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
     TextField,
-    Button
+    Button,
+    Typography
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
@@ -40,6 +41,7 @@ const CustomMealPlan = () => {
     const [carbsLevel, setCarbsLevel] = useState(0);
     const [proteinLevel, setProteinLevel] = useState(0);
     const [fatsLevel, setFatsLevel] = useState(0);
+    const [mealPlan, setMealPLan] = useState([0]);
 
     const changeCaloryLevel = (e) => {
         setCaloryLevel(e.target.value);
@@ -59,6 +61,7 @@ const CustomMealPlan = () => {
 
     const getCustomMealPlan = async (props) => {
         const customMealplan = await user.customMealPlan(props);
+        setMealPLan(customMealplan.customMealPlan);
         console.log(customMealplan);
     }
 
@@ -68,7 +71,7 @@ const CustomMealPlan = () => {
             carbs: parseFloat(carbsLevel),
             protein: parseFloat(proteinLevel),
             fat: parseFloat(fatsLevel),
-            days: 1,
+            days: 2,
             format: [MealTime.Breakfast, MealTime.Lunch, MealTime.Dinner]
         };
         getCustomMealPlan(data);
@@ -119,6 +122,19 @@ const CustomMealPlan = () => {
                 >
                     Submit
                 </Button>
+
+            </div>
+            <div>
+                {mealPlan !== 0 && (
+                    mealPlan.map((plan, index) => {
+                        return (
+                            <div key={index}>
+                                <Typography>{plan.calories}</Typography>
+                                <Typography>{plan.day}</Typography>
+                            </div>
+                        );
+                    })
+                )}
             </div>
         </div>
     );
