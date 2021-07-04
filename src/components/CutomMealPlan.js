@@ -131,6 +131,7 @@ const CustomMealPlan = () => {
                             <div key={index}>
                                 <Typography>{plan.calories}</Typography>
                                 <Typography>{plan.day}</Typography>
+                                {/* {plan.meal.map} */}
                             </div>
                         );
                     })
