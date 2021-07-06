@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TextField,
     Button,
-    Typography,
-    Input,
-    InputLabel
+    Typography
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
 import { Suggestic } from "@suggestic/sdk";
-import SingleMealPlan from './SingleMealPlan';
 import BackgroundImage from '../images/2.jpg';
+import MealPlanDialog from './MealPlanDialog';
 require('dotenv').config();
 
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
-        backgroundColor: '#DAF7A6',
+        backgroundColor: '#EFFBFD',
         minHeight: '80vh',
         borderRadius: '2%',
         marginLeft: theme.spacing(25),
@@ -81,8 +79,17 @@ const CustomMealPlan = () => {
     const [carbsLevel, setCarbsLevel] = useState('');
     const [proteinLevel, setProteinLevel] = useState('');
     const [fatsLevel, setFatsLevel] = useState('');
+    const [days, setDays] = useState('');
     const [requestData, setRequestData] = useState({});
     const [mealPlan, setMealPLan] = useState([]);
+
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        setRequestData({});
+        setMealPLan([]);
+        console.log('hi');
+    },[]);
 
     const changeCaloryLevel = (e) => {
         setCaloryLevel(e.target.value);
@@ -100,23 +107,38 @@ const CustomMealPlan = () => {
         setFatsLevel(e.target.value);
     }
 
+    const changeNoOfDays = e => {
+        setDays(e.target.value);
+    }
+
     const getCustomMealPlan = async (props) => {
         const customMealplan = await user.customMealPlan(props);
         setMealPLan(customMealplan.customMealPlan);
-        console.log(customMealplan);
+        console.log("cm", customMealplan);
+        handleClickOpen();
     }
 
     const requestCustomMealPlan = async() => {
-        setRequestData({
+        let data = {
             calories: parseFloat(caloryLevel),
             carbs: parseFloat(carbsLevel),
             protein: parseFloat(proteinLevel),
             fat: parseFloat(fatsLevel),
-            days: 2,
+            days: parseInt(days),
             format: [MealTime.Breakfast, MealTime.Lunch, MealTime.Dinner]
-        });
-        await getCustomMealPlan(requestData);
+        };
+        setRequestData(data);
+        await getCustomMealPlan(data);
+        data = {};
     }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <div className={classes.container}>
@@ -164,6 +186,16 @@ const CustomMealPlan = () => {
                             onChange={changeFatLevel}
                         />
                     </div>
+                    <div className={classes.inputLine}>
+                        <Typography>Days:&nbsp;&nbsp;&nbsp;</Typography>
+                        <TextField
+                            required
+                            id="days"
+                            fullWidth
+                            value={days}
+                            onChange={changeNoOfDays}
+                        />
+                    </div>
                     <div className={classes.buttonLine}>
                         <Button
                             variant="contained"
@@ -181,24 +213,11 @@ const CustomMealPlan = () => {
                 </div>
 
             </div>
-            <div>
-                {mealPlan.length !== 0 && (
-                    mealPlan.map((plan, index) => {
-                        return (
-                            <div key={index}>
-                                <Typography>{plan.calories}</Typography>
-                                <Typography>{plan.day}</Typography>
-                                <SingleMealPlan
-                                    mealDetails={plan.meals}
-                                />
-                            </div>
-                        );
-                    })
-                )}
-                {/* {mealPlan.length === 0 &&(
-                    <Typography>Nothing to display</Typography>
-                )} */}
-            </div>
+            <MealPlanDialog
+                open = {open}
+                handleClose = {handleClose}
+                mealPlan = {mealPlan}
+            />
         </div>
     );
 }
