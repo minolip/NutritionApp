@@ -8,7 +8,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
 import { Suggestic } from "@suggestic/sdk";
-import { Card } from '@material-ui/core';
 import BackgroundImage from '../images/2.jpg';
 import MealPlanDialog from './MealPlanDialog';
 require('dotenv').config();
