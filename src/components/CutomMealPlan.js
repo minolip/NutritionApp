@@ -7,6 +7,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
 import { Suggestic } from "@suggestic/sdk";
+import { Card } from '@material-ui/core';
 import BackgroundImage from '../images/2.jpg';
 import MealPlanDialog from './MealPlanDialog';
 require('dotenv').config();
@@ -14,9 +15,8 @@ require('dotenv').config();
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
-        backgroundColor: '#EFFBFD',
         minHeight: '80vh',
-        borderRadius: '2%',
+        width: '60%',
         marginLeft: theme.spacing(25),
         marginRight: theme.spacing(25)
     },
@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         minHeight: '80vh',
         backgroundImage: `url(${BackgroundImage})`,
-        backgroundRepeat: 'no-repeat',
-        borderRadius: '2%'
+        backgroundRepeat: 'no-repeat'
     },
 
     requestForm: {
@@ -46,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     formHeading: {
         color: '#000C22',
         marginTop: theme.spacing(6),
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(2)
     },
 
     formContent: {
@@ -141,7 +141,7 @@ const CustomMealPlan = () => {
     };
 
     return (
-        <div className={classes.container}>
+        <Card className={classes.container}>
             <div className={classes.requestImage} />
             <div className={classes.requestForm}>
                 <h2 className={classes.formHeading}>Request Custom Meal Plan</h2>
@@ -218,7 +218,7 @@ const CustomMealPlan = () => {
                 handleClose = {handleClose}
                 mealPlan = {mealPlan}
             />
-        </div>
+        </Card>
     );
 }
 
