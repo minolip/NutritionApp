@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
     TextField,
     Button,
-    Typography
+    Typography,
+    Card
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { MealTime } from '@suggestic/sdk/dist/__generated_sdk';
@@ -16,9 +17,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         minHeight: '80vh',
-        width: '60%',
-        marginLeft: theme.spacing(25),
-        marginRight: theme.spacing(25)
+        width: '60%'
     },
 
     requestImage: {
