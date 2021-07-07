@@ -77,14 +77,12 @@ const CustomMealPlan = () => {
     const [carbsLevel, setCarbsLevel] = useState('');
     const [proteinLevel, setProteinLevel] = useState('');
     const [fatsLevel, setFatsLevel] = useState('');
-    const [days, setDays] = useState('');
-    const [requestData, setRequestData] = useState({});
+    const [days, setDays] = useState('');  
     const [mealPlan, setMealPLan] = useState([]);
 
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        setRequestData({});
         setMealPLan([]);
     },[]);
 
@@ -124,7 +122,6 @@ const CustomMealPlan = () => {
             days: parseInt(days),
             format: [MealTime.Breakfast, MealTime.Lunch, MealTime.Dinner]
         };
-        setRequestData(data);
         await getCustomMealPlan(data);
         data = {};
     }
