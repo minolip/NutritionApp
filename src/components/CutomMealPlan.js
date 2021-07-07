@@ -86,7 +86,6 @@ const CustomMealPlan = () => {
     useEffect(() => {
         setRequestData({});
         setMealPLan([]);
-        console.log('hi');
     },[]);
 
     const changeCaloryLevel = (e) => {
