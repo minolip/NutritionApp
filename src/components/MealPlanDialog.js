@@ -7,7 +7,6 @@ import {
     AppBar,
     Toolbar,
     IconButton,
-    Button,
     Divider,
     Box,
     Card
@@ -51,9 +50,6 @@ const MealPlanDialog = ({
                     <Typography variant="h6" className={classes.title}>
                         Custom Meal Plans for Requeted Number of Days
                     </Typography>
-                    {/* <Button autoFocus color="inherit" onClick={handleClose}>
-                        save
-                    </Button> */}
                 </Toolbar>
             </AppBar>
             <Box>
